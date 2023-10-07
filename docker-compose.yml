@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  control-node:
+    build: ./docker/control-node
+    hostname: sv-control_node
+    container_name: control-node
+    networks:
+      internalbr:
+        ipv4_address: 10.50.0.2
+    volumes:
+      - ./playbooks:/opt/playbooks
+  worker:
+    build: ./docker/worker-node
+    networks:
+      - internalbr
+    deploy:
+      mode: replicated
+      replicas: 4
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 60s
+
+
+networks:
+  internalbr:
+  driver: bridge
+    config:
+      - subnet: 10.50.0.0/29
+        gateway: 10.50.0.1
