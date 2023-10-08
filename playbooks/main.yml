@@ -10,15 +10,15 @@
         shell: /bin/sh
         home: /home/alan_test
 
-      - name: install vim
-        community.general.apk:
-          name: vim
-          update_cache: true
+    - name: install vim
+      community.general.apk:
+        name: vim
+        update_cache: true
 
-      - name: create a foo directory in opt for alan_test
-        file:
-          path: /opt/foo
-          owner: alan_test
-          group: alan_test
-          state: directory
-          mode: '0755'
+    - name: create a foo directory in opt for alan_test
+      file:
+        path: /opt/foo
+        owner: alan_test
+        group: alan_test
+        state: directory
+        mode: '0755'
